@@ -3,17 +3,17 @@
 set -o errexit
 
 if [ "$#" -ne 2 ]; then
-  echo "$0 <version> <386|amd64>"
+  echo "$0 <build-increment> <386|amd64>"
   echo
-  echo "where version is something like 'X.Y-Z'."
+  echo "where build-increment is usually an integer, upped by 1 for every new build of this version."
   exit 1
 fi
 
-VERSION=$1
+VERSION="$(cat ./version.go | grep "const VERSION" | awk '{print $NF}' | sed 's/"//g')-$1"
 BASEDIR=statsdaemon_$VERSION
 ARCH=$2
 
-GOOS=linux GOARCH=$ARCH go build statsdaemon.go
+GOOS=linux GOARCH=$ARCH go build
 
 if [ -d $BASEDIR ];then
   rm -frv $BASEDIR
