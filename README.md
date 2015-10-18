@@ -58,3 +58,13 @@ Usage of ./statsdaemon:
   -tcpaddr="": TCP service address, if set
   -version=false: print version string
 ```
+
+Building a Debian package
+=========================
+In your terminal, execute:
+
+    ./build-deb.sh <version> <386|amd64>
+
+where ``<version>`` is something like `0.5.0-5`. To compile this on mac you
+need to install ``dpkg`` using either Homebrew or Ports. You also need support
+for cross compiling Go applications.
